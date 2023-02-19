@@ -1,0 +1,31 @@
+#!/usr/bin/expect
+
+#Arguments
+set uname [lindex $argv 0]
+set w_ip [lindex $argv 1]
+set pword [lindex $argv 2]
+set path [lindex $argv 3]
+set advr_ip [lindex $argv 4]
+set token [lindex $argv 5]
+
+#SSH to the server
+
+spawn ssh -o StrictHostKeyChecking=no $uname@$w_ip
+expect "password: "
+send "$pword\r"
+expect "$ "
+ send "sudo su \r"
+     expect ": "
+     send "$pword\r"
+ expect "# "
+ send "ufw disable\r"
+ expect "# "
+ send "swapoff -a; sed -i '/swap/d' /etc/fstab\r "
+ expect "# "
+ send "curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.25.6+k3s1 K3S_TOKEN=$token sh -s - --disable=traefik,servicelb,local-storage server --server https://$advr_ip:6443\r"
+set timeout 6000
+ expect "# "
+ send "exit\r"
+expect "$ "
+send "exit\r"
+expect eof
