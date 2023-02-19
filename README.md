@@ -2,8 +2,8 @@
 Spin up a kubernetes cluster within seconds.
 
 Note:
-Only run on Ubuntu 18 or newer
-only spins up kubernetes 25
+Tested on ubuntu 20.04.
+only spins up kubernetes 25 (For now)
 
 How to use the file.
 01. login to your primary master server
