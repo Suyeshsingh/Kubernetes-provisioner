@@ -1,6 +1,7 @@
 #!/usr/bin/expect -f
 
 #Arguments
+set timeout 9000
 set uname [lindex $argv 0]
 set w_ip [lindex $argv 1]
 set pword [lindex $argv 2]
